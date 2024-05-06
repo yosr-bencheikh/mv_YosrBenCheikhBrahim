@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation\Slug;
 use App\Repository\VinylMixRepository;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
@@ -33,6 +34,9 @@ class VinylMix
 
     //#[ORM\Column]
     private int $votes = 0;
+    #[ORM\Column(length: 100, unique: true)]
+    #[Slug(fields: ['title'])]
+    private ?string $slug = null;
     /* public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -124,5 +128,17 @@ class VinylMix
             ($this->getId() + 50) % 1000, // number between 0 and 1000, based on the id
             $width
         );
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 }
