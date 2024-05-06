@@ -6,19 +6,30 @@
 {% block body %}
 	<div class="container">
 		<h1 class="d-inline me-3">{{ mix.title }}</h1>
-		<div class="col-12 col-md-4">
-			{{ include('mix/_recordSvg.html.twig') }}
-		</div>
+
 		<div class="row mt-5">
 			<div class="col-12 col-md-4">
+				{{ include('mix/_recordSvg.html.twig') }}
+			</div>
 
-				<svg width="100%" height="100%" viewbox="0 0 496 496" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"></svg>
-			</div>
 			<div class="col-12 col-md-8 ps-5">
-				TODO: print track count, genre and description
-                  <h2 class="mb-4">{{ mix.trackCount }} songs <small>(genre: {{ mix.genre }})</small></h2>
-                <p>{{ mix.description }}</p>
-			</div>
+				<h2 class="mb-4">{{ mix.trackCount }}
+					songs
+					<small>(genre:
+						{{ mix.genre }})</small>
+				</h2>
+				<p>{{ mix.description }}</p>
+				{{ mix.votesString }}
+				votes
+				<form action="{{ path('app_mix_vote', {id: mix.id }) }}" method="POST">
+					<button type="submit" name="direction" value="up" class="btn btn-outline-primary">
+						<span class="fa fa-thumbs-up"></span>
+					</button>
+					<button type="submit" class="btn btn-outline-primary" name="direction" value="down">
+						<span class="fa fa-thumbs-down"></span>
+					</button>
+				</form>
+			</form>
 		</div>
 	</div>
-{% endblock %}
+</div>{% endblock %}
